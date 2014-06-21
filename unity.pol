@@ -4,7 +4,7 @@ source "$PLAYONLINUX/lib/sources"
 
 POL_SetupWindow_Init
 
-POL_SetupWindow_presentation "Unity 3D" "Unity" "http://www.unity3d.com/" "Cauê Waneck, Damian-LinuxFan" "Unity3D"
+POL_SetupWindow_presentation "Unity 3D" "Unity" "http://www.unity3d.com/" "Cauê Waneck, Damian-LinuxFan, Tomasz Zackiewicz" "Unity3D"
 
 #create prefix
 export WINEARCH="win32"
@@ -26,7 +26,7 @@ POL_Call POL_Install_physx
 POL_Call POL_Install_corefonts
 POL_Call POL_Install_msxml6
 POL_Call POL_Install_wininet
-POL_Call POL_Install_ie6
+POL_Call POL_Install_ie8
 
 #Setting OS wer
 Set_OS  "winxp"
