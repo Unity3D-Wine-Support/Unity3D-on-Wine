@@ -4,17 +4,36 @@ source "$PLAYONLINUX/lib/sources"
 
 POL_SetupWindow_Init
 
-POL_SetupWindow_presentation "Unity 3D" "Unity" "http://www.unity3d.com/" "Cauê Waneck" "Unity3D"
+POL_SetupWindow_presentation "Unity 3D" "Unity" "http://www.unity3d.com/" "Cauê Waneck, Damian-LinuxFan" "Unity3D"
 
 #create prefix
 export WINEARCH="win32"
 POL_Wine_SelectPrefix "Unity3D"
-POL_Wine_PrefixCreate "1.7.6"
+POL_Wine_PrefixCreate "1.7.11"
 #setup prefix
 POL_Wine_InstallFonts
 #POL_Call POL_Install_directx9
 POL_Call POL_Install_dotnet20
 POL_Call POL_Install_tahoma
+POL_Call POL_Install_vcrun2008
+POL_Call POL_Install_vcrun2010
+POL_Call POL_Install_mono210
+POL_Call POL_Install_d3dx9_36
+POL_Call POL_Install_d3dcompiler_43
+POL_Call POL_Install_dxdiag
+POL_Call POL_Install_dxfullsetup
+POL_Call POL_Install_physx
+POL_Call POL_Install_corefonts
+POL_Call POL_Install_msxml6
+POL_Call POL_Install_wininet
+POL_Call POL_Install_ie6
+
+#Setting OS wer
+Set_OS  "winxp"
+
+#Setting mono forcing in MonoDevelop
+POL_Wine_OverrideDLL "native" "mscore"
+POL_Wine_OverrideDLL "" "mscorsvw.exe"
 
 mkdir -p $WINEPREFIX/drive_c/users/$USER/AppData/LocalLow
 
