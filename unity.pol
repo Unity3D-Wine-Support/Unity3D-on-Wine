@@ -14,6 +14,8 @@ POL_Wine_PrefixCreate "1.7.11"
 POL_Wine_InstallFonts
 #POL_Call POL_Install_directx9
 POL_Call POL_Install_dotnet20
+POL_Call POL_Install_dotnet35
+POL_Call POL_Install_dotnet40
 POL_Call POL_Install_tahoma
 POL_Call POL_Install_vcrun2008
 POL_Call POL_Install_vcrun2010
