@@ -1,18 +1,36 @@
 #!/bin/bash
+
+# Date : (2014-03-07 10-21)
+# Last revision : (2014-03-07 10-21)
+# Wine version used : 1.7.14
+# Distribution used to test : OpenSuse 13.1
+# Authors : waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com)
+# Contributors: Goran Grncaroski (running MonoDevelop), other people (testing solutions)
+# Script licence : GPL v.2
+# Only For : http://www.playonlinux.com
+# Depend :
+
+# Known Issues : You can't use Asset Store
+
 [ "$PLAYONLINUX" = "" ]  exit 0
 source "$PLAYONLINUX/lib/sources"
 
-POL_SetupWindow_Init
+TITLE="Unity 3D"
+PREFIX="Untity3D"
+WINE_VERSION="1.7.14"
 
-POL_SetupWindow_presentation "Unity 3D" "Unity" "http://www.unity3d.com/" "Cauê Waneck, Damian-LinuxFan, Tomasz Zackiewicz" "Unity3D"
+POL_SetupWindow_Init
+POL_Debug_Init
+
+POL_SetupWindow_presentation "$TITLE" "Unity" "http://www.unity3d.com/" "Cauê Waneck, Damian-LinuxFan, Tomasz Zackiewicz" "$PREFIX"
 
 #create prefix
 export WINEARCH="win32"
-POL_Wine_SelectPrefix "Unity3D"
-POL_Wine_PrefixCreate "1.7.11"
+POL_Wine_SelectPrefix "$PREFIX"
+POL_Wine_PrefixCreate "$WINE_VERSION"
+
 #setup prefix
 POL_Wine_InstallFonts
-#POL_Call POL_Install_directx9
 POL_Call POL_Install_dotnet20
 POL_Call POL_Install_dotnet35
 POL_Call POL_Install_dotnet40
@@ -31,7 +49,7 @@ POL_Call POL_Install_wininet
 POL_Call POL_Install_ie8
 
 #Setting OS wer
-Set_OS  "winxp"
+Set_OS  "winxp" "sp3"
 
 #Setting mono forcing in MonoDevelop
 POL_Wine_OverrideDLL "native" "mscore"
@@ -47,14 +65,13 @@ echo "[HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion]" >> 
 echo '"ProductId"="12345-oem-0000001-54321"' >> $regfile
 
 POL_Wine regedit $regfile
-#rm $regfile
 
-POL_SetupWindow_browse "Please select the location of the Unity3D setup executable" "Unity Setup Executable"
+POL_SetupWindow_browse "Please select the location of the Unity3D setup executable" "$TITLE"
 
 UNITYLOC=$APP_ANSWER
 POL_Wine $UNITYLOC
 
-POL_Shortcut "Unity.exe" "Unity 3D"
+POL_Shortcut "Unity.exe" "$TITLE"
 
 POL_SetupWindow_Close
 exit
