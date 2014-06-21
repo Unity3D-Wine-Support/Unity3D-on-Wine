@@ -4,7 +4,7 @@
 # Last revision : (2014-03-07 10-21)
 # Wine version used : 1.7.14
 # Distribution used to test : OpenSuse 13.1
-# Authors : waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com), gnumaru
+# Authors : waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com), gnumaru, Doctor Jellyface (doctorjellyface@riseup.net)
 # Contributors: Goran Grncaroski (running MonoDevelop), other people (testing solutions)
 # Script licence : GPL v.2
 # Only For : http://www.playonlinux.com
@@ -22,7 +22,7 @@ WINE_VERSION="1.7.14"
 POL_SetupWindow_Init
 POL_Debug_Init
 
-POL_SetupWindow_presentation "$TITLE" "Unity" "http://www.unity3d.com/" "Cauê Waneck, Damian-LinuxFan, Tomasz Zackiewicz, gnumaru" "$PREFIX"
+POL_SetupWindow_presentation "$TITLE" "Unity" "http://www.unity3d.com/" "Cauê Waneck, Damian-LinuxFan, Tomasz Zackiewicz, gnumaru, Doctor Jellyface" "$PREFIX"
 
 #create prefix
 export WINEARCH="win32"
@@ -60,13 +60,7 @@ POL_Wine_OverrideDLL "" "mscorsvw.exe"
 mkdir -p $WINEPREFIX/drive_c/users/$USER/AppData/LocalLow
 
 #registry
-regfile=$(mktemp --suffix=.REG)
-echo "REGEDIT4" > $regfile
-echo "" >> $regfile
-echo "[HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion]" >> $regfile
-echo '"ProductId"="12345-oem-0000001-54321"' >> $regfile
-
-POL_Wine regedit $regfile
+POL_Wine reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion" /v ProductId /t REG_SZ /d 12345-oem-0000001-54321
 
 POL_SetupWindow_browse "Please select the location of the Unity3D setup executable" "$TITLE"
 
