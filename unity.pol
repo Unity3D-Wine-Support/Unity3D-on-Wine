@@ -1,0 +1,39 @@
+#!/bin/bash
+[ "$PLAYONLINUX" = "" ]  exit 0
+source "$PLAYONLINUX/lib/sources"
+
+POL_SetupWindow_Init
+
+POL_SetupWindow_presentation "Unity 3D" "Unity" "http://www.unity3d.com/" "Cauê Waneck" "Unity3D"
+
+#create prefix
+export WINEARCH="win32"
+POL_Wine_SelectPrefix "Unity3D"
+POL_Wine_PrefixCreate "1.7.6"
+#setup prefix
+POL_Wine_InstallFonts
+#POL_Call POL_Install_directx9
+POL_Call POL_Install_dotnet20
+POL_Call POL_Install_tahoma
+
+mkdir -p $WINEPREFIX/drive_c/users/$USER/AppData/LocalLow
+
+#registry
+regfile=$(mktemp --suffix=.REG)
+echo "REGEDIT4" > $regfile
+echo "" >> $regfile
+echo "[HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion]" >> $regfile
+echo '"ProductId"="12345-oem-0000001-54321"' >> $regfile
+
+POL_Wine regedit $regfile
+#rm $regfile
+
+POL_SetupWindow_browse "Please select the location of the Unity3D setup executable" "Unity Setup Executable"
+
+UNITYLOC=$APP_ANSWER
+POL_Wine $UNITYLOC
+
+POL_Shortcut "Unity.exe" "Unity 3D"
+
+POL_SetupWindow_Close
+exit
