@@ -4,7 +4,7 @@
 # Last revision : (2014-03-07 10-21)
 # Wine version used : 1.7.14
 # Distribution used to test : OpenSuse 13.1
-# Authors : waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com)
+# Authors : waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com), gnumaru
 # Contributors: Goran Grncaroski (running MonoDevelop), other people (testing solutions)
 # Script licence : GPL v.2
 # Only For : http://www.playonlinux.com
@@ -22,7 +22,7 @@ WINE_VERSION="1.7.14"
 POL_SetupWindow_Init
 POL_Debug_Init
 
-POL_SetupWindow_presentation "$TITLE" "Unity" "http://www.unity3d.com/" "Cauê Waneck, Damian-LinuxFan, Tomasz Zackiewicz" "$PREFIX"
+POL_SetupWindow_presentation "$TITLE" "Unity" "http://www.unity3d.com/" "Cauê Waneck, Damian-LinuxFan, Tomasz Zackiewicz, gnumaru" "$PREFIX"
 
 #create prefix
 export WINEARCH="win32"
@@ -31,6 +31,7 @@ POL_Wine_PrefixCreate "$WINE_VERSION"
 
 #setup prefix
 POL_Wine_InstallFonts
+POL_Call POL_Install_directx9
 POL_Call POL_Install_dotnet20
 POL_Call POL_Install_dotnet35
 POL_Call POL_Install_dotnet40
@@ -52,7 +53,8 @@ POL_Call POL_Install_ie8
 Set_OS  "winxp" "sp3"
 
 #Setting mono forcing in MonoDevelop
-POL_Wine_OverrideDLL "native" "mscore"
+POL_Wine_OverrideDLL “native, builtin” “mscore”
+POL_Wine_OverrideDLL “builtin, native” “dnsapi”
 POL_Wine_OverrideDLL "" "mscorsvw.exe"
 
 mkdir -p $WINEPREFIX/drive_c/users/$USER/AppData/LocalLow
