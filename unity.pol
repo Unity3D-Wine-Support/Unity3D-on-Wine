@@ -5,7 +5,7 @@
 # Wine version used : 1.7.14
 # Distribution used to test : OpenSuse 13.1
 # Authors : waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com), gnumaru, Doctor Jellyface (doctorjellyface@riseup.net)
-# Contributors: Goran Grncaroski (running MonoDevelop), other people (testing solutions)
+# Contributors: Goran Grncaroski (running MonoDevelop), eje211 (crash fix), other people (testing solutions)
 # Script licence : GPL v.2
 # Only For : http://www.playonlinux.com
 # Depend :
@@ -53,8 +53,8 @@ POL_Call POL_Install_ie8
 Set_OS  "winxp" "sp3"
 
 #Setting mono forcing in MonoDevelop
-POL_Wine_OverrideDLL “native, builtin” “mscore”
-POL_Wine_OverrideDLL “builtin, native” “dnsapi”
+POL_Wine_OverrideDLL "native, builtin" "mscore"
+POL_Wine_OverrideDLL "builtin, native" "dnsapi"
 POL_Wine_OverrideDLL "" "mscorsvw.exe"
 
 mkdir -p $WINEPREFIX/drive_c/users/$USER/AppData/LocalLow
