@@ -1,0 +1,54 @@
+--- wine1.5-1.5.29.orig/dlls/winex11.drv/opengl.c
++++ wine1.5-1.5.29/dlls/winex11.drv/opengl.c
+@@ -1840,31 +1840,33 @@ static BOOL glxdrv_wglShareLists(struct
+      * current or when it hasn't shared display lists before.
+      */
+ 
+-    if((org->has_been_current && dest->has_been_current) || dest->has_been_current)
++    if (dest->sharing)
+     {
+-        ERR("Could not share display lists, one of the contexts has been current already !\n");
++        ERR("Could not share display lists because 'dest' has already shared lists before\n");
+         return FALSE;
+     }
+-    else if(dest->sharing)
++    if (NtCurrentTeb()->glContext == dest)
+     {
+-        ERR("Could not share display lists because hglrc2 has already shared lists before\n");
+-        return FALSE;
++        FIXME("'dest' context is current.\n");
++//         return FALSE;
+     }
+-    else
+-    {
+-        describeContext(org);
+-        describeContext(dest);
+ 
+-        /* Re-create the GLX context and share display lists */
+-        pglXDestroyContext(gdi_display, dest->ctx);
+-        dest->ctx = create_glxcontext(gdi_display, dest, org->ctx);
+-        TRACE(" re-created an OpenGL context (%p) for Wine context %p sharing lists with OpenGL ctx %p\n", dest->ctx, dest, org->ctx);
+-
+-        org->sharing = TRUE;
+-        dest->sharing = TRUE;
+-        return TRUE;
++    if (dest->has_been_current)
++    {
++        FIXME("'dest' context has been current already, this might break terribly!\n");
+     }
+-    return FALSE;
++
++    describeContext(org);
++    describeContext(dest);
++
++    /* Re-create the GLX context and share display lists */
++    pglXDestroyContext(gdi_display, dest->ctx);
++    dest->ctx = create_glxcontext(gdi_display, dest, org->ctx);
++    TRACE(" re-created an OpenGL context (%p) for Wine context %p sharing lists with OpenGL ctx %p\n", dest->ctx, dest, org->ctx);
++
++    org->sharing = TRUE;
++    dest->sharing = TRUE;
++    return TRUE;
+ }
+ 
+ static void wglFinish(void)
