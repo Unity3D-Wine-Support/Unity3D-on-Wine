@@ -8,7 +8,7 @@
 #	https://github.com/Unity3D-Wine-Support
 #	Script licence : GPL v.2
 
-#	Add the Wine ppa
+#	Add the Wine ppa and enable source
 sudo add-apt-repository -s -y ppa:ubuntu-wine/ppa
 #	Enable the source ppa (not needed anymore)
 #	sudo sed -i '/ deb-src /s/^# //' /etc/apt/source.list.d/ubuntu-wine-ppa-trusty.list
@@ -19,14 +19,14 @@ sudo apt-get update
 #	Install dependencies
 sudo apt-get install -y wget git g++ gcc-multilib g++-multilib
 
-#	Install build dependencies with official script
+#	Install build dependencies 
+sudo apt-get build-dep -y wine1.7
+
+#	Install build dependencies with official script if previous command failed
 cd
 wget http://winezeug.googlecode.com/svn/trunk/install-wine-deps.sh
 chmod +x ./install-wine-deps.sh
 sudo ./install-wine-deps.sh
-
-#	Build dependencies (again?)
-sudo apt-get build-dep -y wine1.7
 
 #	Add 2 symlinks (these symlinks are usually already there, but just to be sure)
 cd /usr/lib/i386-linux-gnu
