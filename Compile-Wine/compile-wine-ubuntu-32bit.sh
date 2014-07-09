@@ -24,6 +24,12 @@ sudo apt-get build-dep -y wine1.7
 
 #	Install build dependencies with official script if previous command failed
 cd
+
+if [ -f ./install-wine-deps.sh ]
+then
+	rm ./install-wine-deps.sh
+fi
+
 wget http://winezeug.googlecode.com/svn/trunk/install-wine-deps.sh
 chmod +x ./install-wine-deps.sh
 sudo ./install-wine-deps.sh
@@ -37,7 +43,7 @@ sudo ln -s libOSMesa.so.6 libOSMesa.so
 git clone git://source.winehq.org/git/wine.git ~/wine-git
 cd ~/wine-git
 #	Checkout to specific version
-#	You may want to change the version (the newest one ussually works best)
+#	You may want to change the version (the newest one usually works best)
 #	You may also comment out this line if you want the newest git wine(may cause problems)
 git checkout wine-1.7.21
 
