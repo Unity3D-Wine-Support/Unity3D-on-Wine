@@ -1,0 +1,20 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\htmlfile\shell\open\command]
+@="C:\\windows\\system32\\winebrowser.exe -nohome \"%1\""
+[-HKEY_CLASSES_ROOT\htmlfile\shell\open\ddeexec]
+[HKEY_CLASSES_ROOT\htmlfile\shell\opennew\command]
+@="C:\\windows\\system32\\winebrowser.exe -nohome \"%1\""
+[-HKEY_CLASSES_ROOT\htmlfile\shell\opennew\ddeexec]
+
+
+[HKEY_CLASSES_ROOT\http\shell\open\command]
+@="C:\\windows\\system32\\winebrowser.exe -nohome \"%1\""
+[-HKEY_CLASSES_ROOT\http\shell\open\ddeexec]
+
+[HKEY_CLASSES_ROOT\https\shell\open\command]
+@="C:\\windows\\system32\\winebrowser.exe -nohome \"%1\""
+[-HKEY_CLASSES_ROOT\https\shell\open\ddeexec]
+
+[HKEY_CURRENT_USER\Software\Wine\WineBrowser]
+"Browsers"="xdg-open,firefox,konqueror,mozilla,netscape,galeon,opera,dillo"
