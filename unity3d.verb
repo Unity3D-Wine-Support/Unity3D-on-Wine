@@ -26,9 +26,6 @@ load_unity3d () {
 	#	Warn about dotnet30
 	#	w_warn "In order to succesfully run this script you must first download netframework3.exe from http://www.oldversion.com/windows/net-framework-3-0 to /home/<username>/.cache/winetricks/dotnet30/"
 
-	#	Set the prefix to 32bit
-	export WINEARCH=win32
-
 	#	First check if winetricks actually can install some components
 	#	by downloading fonts - this will also fix any problems with text in the installer.
 	w_call tahoma
