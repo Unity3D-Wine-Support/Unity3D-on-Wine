@@ -59,9 +59,12 @@ load_unity3d () {
 
 	# Install NVidia PhysX - increases performance
 	w_call physx
-
+	
 	# Install IE 8 to fix the creating project bug
-	w_call ie8
+	if w_workaround_wine_bug 26272 "Installing IE 8 to fix project creation bug."
+	then
+		w_call ie8
+	fi
 
 	# Force mono so that MonoDevelop works
 	w_call forcemono
@@ -87,8 +90,11 @@ load_unity3d () {
 	"$WINE" UnitySetup-4.5.1.exe $W_UNATTENDED_SLASH_S
 
 	#	Fix license bug (if it doesn't work, replace "reg" with "reg.exe")
-	"$WINE" reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion" /v ProductId /t REG_SZ /d 12345-oem-0000001-54321
-
+	if w_workaround_wine_bug 36964 "Creating a ProductId registry key"
+	then
+		"$WINE" reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion" /v ProductId /t REG_SZ /d 12345-oem-0000001-54321
+	fi
+	
 	#	Old registry fix:
 	#	regfile=$(mktemp --suffix=.REG)
 	#	echo "REGEDIT4" > $regfile
@@ -98,8 +104,11 @@ load_unity3d () {
 	#	$WINE regedit $regfile
 
 	#	Fix bug after pressing the play button
-	mkdir -p $WINEPREFIX/drive_c/users/$USER/AppData/LocalLow
-
+	if w_workaround_wine_bug 22896 "Creating FOLDERID_LocalAppDataLow" 1.7.24,
+	then
+		mkdir -p $WINEPREFIX/drive_c/users/$USER/AppData/LocalLow
+	fi
+	
 	#	End
 	w_declare_exe "$W_PROGRAMS_X86_WIN/Unity/Editor" "Unity.exe"
 }
