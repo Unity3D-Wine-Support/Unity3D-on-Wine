@@ -1,0 +1,60 @@
+#	Filename: unity3dvanilla.verb
+#	Please don't change the filename otherwise the script won't work
+#	Date : (2014-06-21 16-12)
+#	Wine version used : 1.7.19
+#	Distribution used to test : Ubuntu 14.04
+#	Author: Doctor Jellyface <doctorjellyface@riseup.net>
+#	This script is a heavily modified version of a port of a script made by:
+#	waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com), gnumaru
+#	Script licence : GPL v.2
+#	Usage: winetricks [options] [path to verb]
+#	Example: winetricks -q "./unity3d.verb"
+#	Use -q for unattended silent installation.
+
+w_metadata unity3dvanilla apps \
+    title="Unity 3D" \
+    publisher="Unity Technologies" \
+    year="2014" \
+    media="download" \
+    file1="UnitySetup-4.5.1.exe" \
+    installed_exe1="$W_PROGRAMS_X86_WIN/Unity/Editor/Unity.exe"
+
+load_unity3dvanilla () {
+
+	#	First check if winetricks actually can install some components
+	#	by downloading fonts - this will also fix any problems with text in the installer.
+	w_call tahoma
+	w_call corefonts
+
+	#	Download and run the installer (this runs after the fonts because it's enourmous)
+	#	4.3.4: http://netstorage.unity3d.com/unity/UnitySetup-4.3.4.exe 0ef66c5ddded85c801d86951d89f73a8968d0798
+	#	4.5.0: http://netstorage.unity3d.com/unity/UnitySetup-4.5.0.exe 82819f7946d2e2f4188b24e20dc2dc83b6f6f675
+	w_download http://netstorage.unity3d.com/unity/UnitySetup-4.5.1.exe 8e17cc892bb75e2190a260f27ad3f8514daec752
+
+	cd "$W_CACHE/$W_PACKAGE"
+
+	w_warn "Now running the Unity installation. As Unity is very big, this can take more than 20 minutes. Please be patient."
+	#	Run the installer, in unattended mode if requested
+	"$WINE" UnitySetup-4.5.1.exe $W_UNATTENDED_SLASH_S
+	
+	# Install IE 8 to fix the creating project bug
+	if w_workaround_wine_bug 26272 "Installing IE 8 to fix project creation bug."
+	then
+		w_call ie8
+	fi
+
+	#	Fix license bug (if it doesn't work, replace "reg" with "reg.exe")
+	if w_workaround_wine_bug 36964 "Creating a ProductId registry key"
+	then
+		"$WINE" reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion" /v ProductId /t REG_SZ /d 12345-oem-0000001-54321
+	fi
+
+	#	Fix bug after pressing the play button
+	if w_workaround_wine_bug 22896 "Creating FOLDERID_LocalAppDataLow" 1.7.24,
+	then
+		mkdir -p $WINEPREFIX/drive_c/users/$USER/AppData/LocalLow
+	fi
+
+	#	End
+	w_declare_exe "$W_PROGRAMS_X86_WIN/Unity/Editor" "Unity.exe"
+}
