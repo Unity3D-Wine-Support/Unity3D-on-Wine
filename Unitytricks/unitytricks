@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# filename: unitytricks
+# source: <https://raw.githubusercontent.com/Unity3D-Wine-Support/Unity3D-on-Wine/master/Unitytricks/unitytricks>
+#
+# Copyright (c) 2014 "Unity3D Wine Support"<https://github.com/Unity3D-on-Wine>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+function intro
+{
+	echo -e "\nWelcome to Unitytricks!"
+	echo "This program is free software made by the Unity3D Wine Support team<https://github.com/Unity3D-Wine-Support/>."
+	commands
+	main
+}
+
+function main
+{
+	echo "Which command do you want to run?"
+	read -p "> " REPLY
+	
+	if [ "$REPLY" = "help" ]
+	then
+		commands
+		main
+	elif [ "$REPLY" = "hello" ]
+	then
+		echo "Hello World!"
+	elif [ "$REPLY" = "md" ]
+	then
+		echo "FIXME: This command isn't done yet."
+		run_again
+	else
+		echo "ERROR: Unknown command '$REPLY'."
+		run_again
+	fi
+
+	run_again
+
+}
+
+function commands
+{
+	echo -e "These are the commands you can run:\n"
+	
+	echo "  0: 'help' - prints out all the commands."
+	echo "  1: 'hello' - prints 'Hello World!'"
+	echo "  2: 'md' - fixes native MonoDevelop highlighting in the given project."
+
+	echo ""
+}
+
+function run_again
+{
+	read -p "Do you want to do anything else? [y/n] " AGAIN
+	if [ "$AGAIN" = "y" ]
+	then
+		main
+	else
+		do_exit
+	fi
+}
+
+function do_exit
+{
+	echo "Press any key to exit."
+	read -n 1 -s
+	echo -e "Exiting...\nGoodbye!"
+	exit
+}
+
+intro
