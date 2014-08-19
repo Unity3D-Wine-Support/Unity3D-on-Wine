@@ -16,7 +16,7 @@
 source "$PLAYONLINUX/lib/sources"
 
 TITLE="Unity 3D"
-PREFIX="Untity3D"
+PREFIX="Unity3D"
 WINE_VERSION="1.7.21"
 
 POL_SetupWindow_Init
