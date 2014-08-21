@@ -3,7 +3,7 @@ Unity3D-on-Wine
 
 Scripts for making Unity3D run on Wine.
 
-This page is new. But new, I mean **really** new. So don't expect flashy documentation, fixed bugs or real-time support.
+This page is new. By new, I mean **really** new. So don't expect flashy documentation, fixed bugs or real-time support.
 
 These scripts are in full development, and sometimes they may not work as intended.
 
