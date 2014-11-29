@@ -16,7 +16,7 @@ w_metadata unity3d apps \
     publisher="Unity Technologies" \
     year="2014" \
     media="download" \
-    file1="UnitySetup-4.5.5.exe" \
+    file1="UnitySetup-4-6-0.exe" \
     installed_exe1="$W_PROGRAMS_X86_WIN/Unity/Editor/Unity.exe"
 
 load_unity3d () {
@@ -83,13 +83,14 @@ load_unity3d () {
 	#	4.5.0: http://netstorage.unity3d.com/unity/UnitySetup-4.5.0.exe 82819f7946d2e2f4188b24e20dc2dc83b6f6f675
 	#	4.5.1: http://netstorage.unity3d.com/unity/UnitySetup-4.5.1.exe 8e17cc892bb75e2190a260f27ad3f8514daec752
 	#	4.5.3: http://netstorage.unity3d.com/unity/UnitySetup-4.5.3.exe f4b46e5d8984b5207657fd1f386e4ab991f1a8a3
-	w_download http://netstorage.unity3d.com/unity/UnitySetup-4.5.5.exe c6ef9abc853f32a7fa1c9c9d841ebeef9e46cb57
+	#	4.5.5: http://netstorage.unity3d.com/unity/UnitySetup-4.5.5.exe c6ef9abc853f32a7fa1c9c9d841ebeef9e46cb57
+	w_download http://netstorage.unity3d.com/unity/UnitySetup-4.6.0.exe 5cc7a85e186c965d230bcc7a2a463d92fbc2f7fc
 
 	cd "$W_CACHE/$W_PACKAGE"
 
 	w_warn "Now running the Unity installation. As Unity is very big, this can take more than 20 minutes. Please be patient."
 	#	Run the installer, in unattended mode if requested
-	"$WINE" UnitySetup-4.5.5.exe $W_UNATTENDED_SLASH_S
+	"$WINE" UnitySetup-4.6.0.exe $W_UNATTENDED_SLASH_S
 
 	#	Fix license bug (if it doesn't work, replace "reg" with "reg.exe")
 	if w_workaround_wine_bug 36964 "Creating a ProductId registry key"
