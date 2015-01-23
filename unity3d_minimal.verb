@@ -1,4 +1,4 @@
-#	Filename: unity3dvanilla.verb
+#	Filename: unity3d_minimal.verb
 #	Please don't change the filename otherwise the script won't work
 #	Date : (2014-06-21 16-12)
 #	Wine version used : 1.7.19
@@ -11,7 +11,7 @@
 #	Example: winetricks -q "./unity3d.verb"
 #	Use -q for unattended silent installation.
 
-w_metadata unity3dvanilla apps \
+w_metadata unity3d_minimal apps \
     title="Unity 3D" \
     publisher="Unity Technologies" \
     year="2014" \
@@ -19,7 +19,7 @@ w_metadata unity3dvanilla apps \
     file1="UnitySetup-4.5.1.exe" \
     installed_exe1="$W_PROGRAMS_X86_WIN/Unity/Editor/Unity.exe"
 
-load_unity3dvanilla () {
+load_unity3d_minimal () {
 
 	#	First check if winetricks actually can install some components
 	#	by downloading fonts - this will also fix any problems with text in the installer.
