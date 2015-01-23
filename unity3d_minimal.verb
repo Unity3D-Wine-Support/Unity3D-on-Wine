@@ -38,13 +38,13 @@ load_unity3d_minimal () {
 	"$WINE" UnitySetup-4.5.1.exe $W_UNATTENDED_SLASH_S
 	
 	# Install IE 8 to fix the creating project bug
-	if w_workaround_wine_bug 26272 "Installing IE 8 to fix project creation bug."
+	if w_workaround_wine_bug 26272 "Installing IE 8 to fix project creation bug." 1.7.34,
 	then
 		w_call ie8
 	fi
 
 	# Fix license bug (if it doesn't work, replace "reg" with "reg.exe")
-	if w_workaround_wine_bug 36964 "Creating a ProductId registry key"
+	if w_workaround_wine_bug 36964 "Creating a ProductId registry key" 1.7.34,
 	then
 		"$WINE" reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion" /v ProductId /t REG_SZ /d 12345-oem-0000001-54321
 	fi
