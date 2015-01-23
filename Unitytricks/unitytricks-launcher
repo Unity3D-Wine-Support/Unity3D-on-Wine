@@ -1,3 +1,0 @@
-#!/bin/sh
-
-x-terminal-emulator -e ~/Unity3D-on-Wine/Unitytricks/unitytricks
