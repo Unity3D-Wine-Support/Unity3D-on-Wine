@@ -2,7 +2,7 @@
 
 # Date : (2014-03-07 10-21)
 # Last revision : (2014-03-07 10-21)
-# Wine version used : 1.7.21
+# Wine version used : 1.7.35
 # Distribution used to test : OpenSuse 13.1
 # Authors : waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com), gnumaru, Doctor Jellyface (doctorjellyface@riseup.net)
 # Contributors: Goran Grncaroski (running MonoDevelop), eje211 (crash fix), other people (testing solutions)
@@ -17,7 +17,7 @@ source "$PLAYONLINUX/lib/sources"
 
 TITLE="Unity 3D"
 PREFIX="Unity3D"
-WINE_VERSION="1.7.21"
+WINE_VERSION="1.7.35"
 
 POL_SetupWindow_Init
 POL_Debug_Init
