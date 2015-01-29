@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Date : (2014-03-07 10-21)
-# Last revision : (2014-03-07 10-21)
+# Last revision : (2015-01-29 2-41)
 # Wine version used : 1.7.35
-# Distribution used to test : OpenSuse 13.1
-# Authors : waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com), gnumaru, Doctor Jellyface (doctorjellyface@riseup.net)
+# Distribution used to test : Fedora 21
+# Authors : waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com), gnumaru, Doctor Jellyface (doctorjellyface@riseup.net), MarsEdge
 # Contributors: Goran Grncaroski (running MonoDevelop), eje211 (crash fix), other people (testing solutions)
 # Script licence : GPL v.2
 # Only For : http://www.playonlinux.com
@@ -22,7 +22,7 @@ WINE_VERSION="1.7.35"
 POL_SetupWindow_Init
 POL_Debug_Init
 
-POL_SetupWindow_presentation "$TITLE" "Unity" "http://www.unity3d.com/" "Cauê Waneck, Damian-LinuxFan, Tomasz Zackiewicz, gnumaru, Doctor Jellyface" "$PREFIX"
+POL_SetupWindow_presentation "$TITLE" "Unity" "http://www.unity3d.com/" "Cauê Waneck, Damian-LinuxFan, Tomasz Zackiewicz, gnumaru, Doctor Jellyface, MarsEdge" "$PREFIX"
 
 #create prefix
 export WINEARCH="win32"
