@@ -56,8 +56,6 @@ POL_Wine_OverrideDLL "native, builtin" "mscore"
 POL_Wine_OverrideDLL "builtin, native" "dnsapi"
 POL_Wine_OverrideDLL "" "mscorsvw.exe"
 
-mkdir -p $WINEPREFIX/drive_c/users/$USER/AppData/LocalLow
-
 POL_SetupWindow_browse "Please select the location of the Unity3D setup executable" "$TITLE"
 
 UNITYLOC=$APP_ANSWER
