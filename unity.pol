@@ -47,7 +47,6 @@ POL_Call POL_Install_physx
 POL_Call POL_Install_corefonts
 POL_Call POL_Install_msxml6
 POL_Call POL_Install_wininet
-POL_Call POL_Install_ie8
 
 #Setting OS wer
 Set_OS  "winxp" "sp3"
