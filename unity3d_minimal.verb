@@ -16,7 +16,7 @@ w_metadata unity3d_minimal apps \
     publisher="Unity Technologies" \
     year="2014" \
     media="download" \
-    file1="UnitySetup-4.5.1.exe" \
+    file1="UnitySetup-4.6.1.exe" \
     installed_exe1="$W_PROGRAMS_X86_WIN/Unity/Editor/Unity.exe"
 
 load_unity3d_minimal () {
@@ -29,13 +29,14 @@ load_unity3d_minimal () {
 	# Download and run the installer (this runs after the fonts because it's enourmous)
 	# 4.3.4: http://netstorage.unity3d.com/unity/UnitySetup-4.3.4.exe 0ef66c5ddded85c801d86951d89f73a8968d0798
 	# 4.5.0: http://netstorage.unity3d.com/unity/UnitySetup-4.5.0.exe 82819f7946d2e2f4188b24e20dc2dc83b6f6f675
-	w_download http://netstorage.unity3d.com/unity/UnitySetup-4.5.1.exe 8e17cc892bb75e2190a260f27ad3f8514daec752
+	# 4.5.1: http://netstorage.unity3d.com/unity/UnitySetup-4.5.1.exe 8e17cc892bb75e2190a260f27ad3f8514daec752
+	w_download http://netstorage.unity3d.com/unity/UnitySetup-4.6.1.exe e0fb5e2d653024d4981dce42aaff473943f1f283
 
 	cd "$W_CACHE/$W_PACKAGE"
 
 	w_warn "Now running the Unity installation. As Unity is very big, this can take more than 20 minutes. Please be patient."
 	# Run the installer, in unattended mode if requested
-	"$WINE" UnitySetup-4.5.1.exe $W_UNATTENDED_SLASH_S
+	"$WINE" UnitySetup-4.6.1.exe $W_UNATTENDED_SLASH_S
 	
 	# Install IE 8 to fix the creating project bug
 	if w_workaround_wine_bug 26272 "Installing IE 8 to fix project creation bug." 1.7.34,
