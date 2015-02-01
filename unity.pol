@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Date : (2014-03-07 10-21)
-# Last revision : (2014-03-07 10-21)
-# Wine version used : 1.7.21
-# Distribution used to test : OpenSuse 13.1
-# Authors : waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com), gnumaru, Doctor Jellyface (doctorjellyface@riseup.net)
+# Last revision : (2015-01-29 2-41)
+# Wine version used : 1.7.35
+# Distribution used to test : Fedora 21
+# Authors : waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com), gnumaru, Doctor Jellyface (doctorjellyface@riseup.net), MarsEdge
 # Contributors: Goran Grncaroski (running MonoDevelop), eje211 (crash fix), other people (testing solutions)
 # Script licence : GPL v.2
 # Only For : http://www.playonlinux.com
@@ -17,12 +17,12 @@ source "$PLAYONLINUX/lib/sources"
 
 TITLE="Unity 3D"
 PREFIX="Unity3D"
-WINE_VERSION="1.7.21"
+WINE_VERSION="1.7.35"
 
 POL_SetupWindow_Init
 POL_Debug_Init
 
-POL_SetupWindow_presentation "$TITLE" "Unity" "http://www.unity3d.com/" "Cauê Waneck, Damian-LinuxFan, Tomasz Zackiewicz, gnumaru, Doctor Jellyface" "$PREFIX"
+POL_SetupWindow_presentation "$TITLE" "Unity" "http://www.unity3d.com/" "Cauê Waneck, Damian-LinuxFan, Tomasz Zackiewicz, gnumaru, Doctor Jellyface, MarsEdge" "$PREFIX"
 
 #create prefix
 export WINEARCH="win32"
@@ -47,7 +47,6 @@ POL_Call POL_Install_physx
 POL_Call POL_Install_corefonts
 POL_Call POL_Install_msxml6
 POL_Call POL_Install_wininet
-POL_Call POL_Install_ie8
 
 #Setting OS wer
 Set_OS  "winxp" "sp3"
@@ -56,11 +55,6 @@ Set_OS  "winxp" "sp3"
 POL_Wine_OverrideDLL "native, builtin" "mscore"
 POL_Wine_OverrideDLL "builtin, native" "dnsapi"
 POL_Wine_OverrideDLL "" "mscorsvw.exe"
-
-mkdir -p $WINEPREFIX/drive_c/users/$USER/AppData/LocalLow
-
-#registry
-POL_Wine reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion" /v ProductId /t REG_SZ /d 12345-oem-0000001-54321
 
 POL_SetupWindow_browse "Please select the location of the Unity3D setup executable" "$TITLE"
 
