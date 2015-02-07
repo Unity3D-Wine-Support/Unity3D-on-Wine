@@ -1,7 +1,6 @@
-Opening scripts with MonoDevelop (or other editors)
-=================
-
-Built-in (or any other native editor)
+Opening scripts with MonoDevelop 
+=
+Built-in MD (or other editors)
 -
 
 In Unity3d go to *Edit>Preferences>ExternalTools>* and under **External Script Editor** choose `unit3d_external_editor.sh`
@@ -14,7 +13,7 @@ you can alternatively use any other text editor by replacing `subl` in commented
 but check how its command line arguments should be formatted!!
 
 
-Native
+Native MD
 -
 When Unity opens files with builtin MonoDevelop.exe it sends additional .sln file along. To catch it, we have to pretend to be that MonoDevelop.exe
 
@@ -27,5 +26,5 @@ Thats it!
 
 Bugs
 -
-**Built-in MD** - [Issue #37](https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/issues/37) Modifier key `AltGr` (right alt) isn't registered when pressed. 
-**Native MD** [Issue #39](https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/issues/39) Paths to references aren't correct
+* **Built-in MD** - [Issue #37](https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/issues/37) Modifier key `AltGr` (right alt) isn't registered when pressed. 
+* **Native MD** [Issue #39](https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/issues/39) Paths to references aren't correct
