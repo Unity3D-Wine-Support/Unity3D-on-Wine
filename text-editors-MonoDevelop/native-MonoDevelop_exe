@@ -1,0 +1,22 @@
+#!/bin/sh
+if [ -z "$1" ]; then exit 1; fi;
+
+SLN_PATH=$(winepath -u "$2")
+FILE_PATH_AND_LINE=$(winepath -u "$3")
+
+ONLY_PATH=$(dirname "$SLN_PATH")
+
+SLN_NAME="${SLN_PATH#$ONLY_PATH}"
+SLN_NAME="${SLN_NAME#?}"
+
+FILE_PATH_AND_LINE_NAME="${FILE_PATH_AND_LINE#$ONLY_PATH}"
+FILE_PATH_AND_LINE_NAME="${FILE_PATH_AND_LINE_NAME#?}"
+LINE="${FILE_PATH_AND_LINE_NAME##*;}"
+FILE_PATH_AND_LINE_NAME="${FILE_PATH_AND_LINE_NAME%;$LINE}"
+
+if [ $LINE == "-1" ]; then LINE="0"; fi;
+
+cd "$ONLY_PATH"
+/bin/monodevelop "$SLN_NAME $FILE_PATH_AND_LINE_NAME;$LINE"
+
+exit 0 
