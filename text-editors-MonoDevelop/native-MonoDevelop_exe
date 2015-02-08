@@ -12,13 +12,13 @@ SLN_NAME="${SLN_NAME/.sln/-csharp.sln}"		#open -csharp.sln
 
 LOCAL_TO_SLN_FILE_PATH_AND_LINE="${FILE_PATH_AND_LINE#$SLN_DIR}"
 LOCAL_TO_SLN_FILE_PATH_AND_LINE="${LOCAL_TO_SLN_FILE_PATH_AND_LINE#?}"
-LINE="${LOCAL_TO_SLN_FILE_PATH_AND_LINE##*;}"
-LOCAL_TO_SLN_FILE_PATH="${LOCAL_TO_SLN_FILE_PATH_AND_LINE%;$LINE}"
+FILE_LINE="${LOCAL_TO_SLN_FILE_PATH_AND_LINE##*;}"
+LOCAL_TO_SLN_FILE_PATH="${LOCAL_TO_SLN_FILE_PATH_AND_LINE%;$FILE_LINE}"
 LOCAL_TO_SLN_FILE_DIR=$(dirname "$LOCAL_TO_SLN_FILE_PATH")
 FILE_NAME="${LOCAL_TO_SLN_FILE_PATH#$LOCAL_TO_SLN_FILE_DIR}"
 FILE_NAME="${FILE_NAME#?}"
 
-if [ $LINE == "-1" ]; then LINE="0"; fi;
+if [ $FILE_LINE == "-1" ]; then FILE_LINE="0"; fi;
 
 #to go back ../ for number of folders in which file is -1
 COUNT="${LOCAL_TO_SLN_FILE_PATH//[^\/]}"
@@ -30,6 +30,13 @@ for i in $(seq 0 $COUNT); do BACKWARD_SLN_DIR="${BACKWARD_SLN_DIR}../"; done
 
 cd "${SLN_DIR}/$LOCAL_TO_SLN_FILE_DIR"
 
-/bin/monodevelop "${BACKWARD_SLN_DIR}/$SLN_NAME $FILE_NAME;$LINE"
+PREV_SLN_NAME=$(head -n 1 "${SLN_DIR}/sln_name_of_last_monodevelop_call")
+
+if [ "$(pidof monodevelop)" ] && [ $PREV_SLN_NAME == $SLN_NAME ]
+then /bin/monodevelop "$FILE_NAME;$FILE_LINE"
+else /bin/monodevelop "${BACKWARD_SLN_DIR}/$SLN_NAME $FILE_NAME;$FILE_LINE"
+fi
+
+echo "$SLN_NAME" > "${SLN_DIR}/sln_name_of_last_monodevelop_call"
 
 exit 0
