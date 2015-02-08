@@ -17,4 +17,4 @@ but check how its command line arguments should be formatted!! (also uncomment a
 
 Thats it!  
 
-* **Built-in MD ** - [Issue #37](https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/issues/37) Modifier key `AltGr` (right alt) isn't registered when pressed.
+**Built-in MonoDevelop ** - [Issue #37](https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/issues/37) Modifier key `AltGr` (right alt) isn't registered when pressed.
