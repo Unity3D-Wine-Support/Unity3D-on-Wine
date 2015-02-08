@@ -28,6 +28,8 @@ COUNT="$((COUNT - 1))"
 BACKWARD_SLN_DIR = ""
 for i in $(seq 0 $COUNT); do BACKWARD_SLN_DIR="${BACKWARD_SLN_DIR}../"; done
 
+#Unity calls monodevelop from project directory which is SLN_DIR
+ln -s "/" "${SLN_DIR}/Z:"
 cd "${SLN_DIR}/$LOCAL_TO_SLN_FILE_DIR"
 
 PREV_SLN_NAME=$(head -n 1 "${SLN_DIR}/sln_name_of_last_monodevelop_call")
