@@ -4,20 +4,32 @@ if [ -z "$1" ]; then exit 1; fi;
 SLN_PATH=$(winepath -u "$2")
 FILE_PATH_AND_LINE=$(winepath -u "$3")
 
-ONLY_PATH=$(dirname "$SLN_PATH")
+SLN_DIR=$(dirname "$SLN_PATH")
 
-SLN_NAME="${SLN_PATH#$ONLY_PATH}"
-SLN_NAME="${SLN_NAME#?}"
-SLN_NAME="${SLN_NAME/.sln/-csharp.sln}"
+SLN_NAME="${SLN_PATH#$SLN_DIR}"
+SLN_NAME="${SLN_NAME#?}"					#remove '/'
+SLN_NAME="${SLN_NAME/.sln/-csharp.sln}"		#open -csharp.sln
 
-FILE_PATH_AND_LINE_NAME="${FILE_PATH_AND_LINE#$ONLY_PATH}"
-FILE_PATH_AND_LINE_NAME="${FILE_PATH_AND_LINE_NAME#?}"
-LINE="${FILE_PATH_AND_LINE_NAME##*;}"
-FILE_PATH_AND_LINE_NAME="${FILE_PATH_AND_LINE_NAME%;$LINE}"
+LOCAL_TO_SLN_FILE_PATH_AND_LINE="${FILE_PATH_AND_LINE#$SLN_DIR}"
+LOCAL_TO_SLN_FILE_PATH_AND_LINE="${LOCAL_TO_SLN_FILE_PATH_AND_LINE#?}"
+LINE="${LOCAL_TO_SLN_FILE_PATH_AND_LINE##*;}"
+LOCAL_TO_SLN_FILE_PATH="${LOCAL_TO_SLN_FILE_PATH_AND_LINE%;$LINE}"
+LOCAL_TO_SLN_FILE_DIR=$(dirname "$LOCAL_TO_SLN_FILE_PATH")
+FILE_NAME="${LOCAL_TO_SLN_FILE_PATH#$LOCAL_TO_SLN_FILE_DIR}"
+FILE_NAME="${FILE_NAME#?}"
 
 if [ $LINE == "-1" ]; then LINE="0"; fi;
 
-cd "$ONLY_PATH"
-/bin/monodevelop "$SLN_NAME $FILE_PATH_AND_LINE_NAME;$LINE"
+#to go back ../ for number of folders in which file is -1
+COUNT="${LOCAL_TO_SLN_FILE_PATH//[^\/]}"
+COUNT="${#COUNT}"
+COUNT="$((COUNT - 1))"
 
-exit 0 
+BACKWARD_SLN_DIR = ""
+for i in $(seq 0 $COUNT); do BACKWARD_SLN_DIR="${BACKWARD_SLN_DIR}../"; done
+
+cd "${SLN_DIR}/$LOCAL_TO_SLN_FILE_DIR"
+
+/bin/monodevelop "${BACKWARD_SLN_DIR}/$SLN_NAME $FILE_NAME;$LINE"
+
+exit 0
