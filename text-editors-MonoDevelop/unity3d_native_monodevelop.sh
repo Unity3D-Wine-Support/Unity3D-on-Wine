@@ -21,8 +21,6 @@ for i in $(seq 0 $COUNT); do BACKWARD_SLN_DIR="${BACKWARD_SLN_DIR}../"; done
 ln -s "/" "${SLN_DIR}/Z:"
 cd "${SLN_DIR}$LOCAL_FILE_DIR"
 
-echo "${SLN_DIR}$LOCAL_FILE_DIR" >> ~/unity_arguments
-
 PREV_SLN_NAME=$(head -n 1 "${SLN_DIR}/sln_name_of_last_monodevelop_call")
 
 if [ "$(pidof monodevelop)" ] && [ $PREV_SLN_NAME == $SLN_NAME ]
