@@ -15,7 +15,7 @@ COUNT="${LOCAL_FILE_PATH//[^\/]}"
 COUNT="${#COUNT}"
 COUNT="$((COUNT - 2))"
 
-BACKWARD_SLN_DIR = ""
+BACKWARD_SLN_DIR=""
 for i in $(seq 0 $COUNT); do BACKWARD_SLN_DIR="${BACKWARD_SLN_DIR}../"; done
 
 ln -s "/" "${SLN_DIR}/Z:"
