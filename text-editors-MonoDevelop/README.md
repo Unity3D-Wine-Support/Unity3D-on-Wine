@@ -1,5 +1,6 @@
 Opening scripts with MonoDevelop 
 =
+Give execution right to .sh script with `chmod +x scriptname.sh` (notice the plus in **+**x)
 
 In Unity3d go to *Edit>Preferences>ExternalTools>* and choose either:
 
@@ -17,4 +18,4 @@ but check how its command line arguments should be formatted!! (also uncomment a
 
 Thats it!  
 
-**Built-in MonoDevelop ** - [Issue #37](https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/issues/37) Modifier key `AltGr` (right alt) isn't registered when pressed.
+ **Built-in MonoDevelop** - [Issue #37](https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/issues/37) Modifier key `AltGr` (right alt) isn't registered when pressed.
