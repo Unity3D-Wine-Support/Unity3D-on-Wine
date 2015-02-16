@@ -3,14 +3,21 @@ if [ -z "$1" ]; then exit 1; fi
 
 if [ "$1" == "--nologo" ]
 then
-	FILE_PATH="${3%;*}"
-	FILE_PATH=$(winepath -u "$FILE_PATH")
+	WIN_PATH="${3%;*}"
 	FILE_LINE="${3##*;}"
 else
-	FILE_PATH=$(winepath -u "$1")
+	WIN_PATH="$1"
 	FILE_LINE="$2"
 fi
 if [ $FILE_LINE == "-1" ]; then FILE_LINE="0"; fi
+
+FILE_PATH=$(winepath -u "$WIN_PATH")
+if [[ $FILE_PATH == *".js" ]]
+then
+    export WINEPREFIX=~/.local/share/wineprefixes/unity3d/
+    wine ${WINEPREFIX}drive_c/Program\ Files/Unity/MonoDevelop/bin/MonoDevelop.exe "$WIN_PATH;$FILE_LINE"
+    exit 0
+fi
 
 SLN_DIR="${FILE_PATH%%/Assets/*}"
 SLN_PATH=$(find "$SLN_DIR" -maxdepth 1 -name "*-csharp.sln")
