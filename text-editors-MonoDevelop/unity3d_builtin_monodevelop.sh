@@ -9,14 +9,9 @@ else
 	WIN_FILE_PATH="$1"
 	FILE_LINE="$2"
 fi
-
 if [ $FILE_LINE == "-1" ]; then FILE_LINE="0"; fi
 
 FILE_PATH=$(winepath -u "$WIN_FILE_PATH")
-
-#replace subl with custom editor (watch out for its argument formatting!)
-#/bin/subl "`wine winepath -u "$1"`:$2"
-
 SLN_DIR="${FILE_PATH%%/Assets/*}"
 SLN_PATH=$(find "$SLN_DIR" -maxdepth 1 -name "*-csharp.sln")
 WIN_SLN_DIR="$(winepath -w "$SLN_DIR")"
