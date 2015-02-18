@@ -2,20 +2,14 @@ Opening scripts with MonoDevelop
 =
 Give execution right to .sh script with `chmod +x scriptname.sh` (notice the plus in **+**x)
 
-In Unity3d go to *Edit>Preferences>ExternalTools>* and choose either:
-
-* *unity3d_**native**_monodevelop.sh*
-* *unity3d_**builtin**_monodevelop.sh*  
+In Unity3d go to *Edit>Preferences>ExternalTools>* and choose one of:
+* unity3d_**native**_monodevelop.sh
+* unity3d_**builtin**_monodevelop.sh
+* unity3d_**custom**_editor.sh
 
 with arguments `"$(File)" $(Line)`
 
-you can alternatively use any other text editor by replacing `subl` in commented line of *unity3d_**builtin**_monodevelop.sh*:
-```
-#/bin/subl "`wine winepath -u "$1"`:$2"
-```
-but check how its command line arguments should be formatted!! (also uncomment and delete the rest of lines)
+That's it!
 
-
-Thats it!  
-
- **Built-in MonoDevelop** - [Issue #37](https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/issues/37) Modifier key `AltGr` (right alt) isn't registered when pressed.
+ *native* (issue [#42](https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/issues/42))
+ *builtin* (issue [#37](https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/issues/37))
