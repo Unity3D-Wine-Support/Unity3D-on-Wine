@@ -21,6 +21,7 @@ LOCAL_FILE_PATH="${FILE_PATH#$SLN_DIR}"
 LOCAL_FILE_DIR=$(dirname "$LOCAL_FILE_PATH")
 FILE_NAME="${LOCAL_FILE_PATH#${LOCAL_FILE_DIR}/}"
 
+export WINEPREFIX=~/.local/share/wineprefixes/unity3d/
 if [[ $FILE_PATH == *".js" ]]
 then
 	SLN_NAME="${SLN_NAME/-csharp/}"
@@ -28,7 +29,6 @@ then
 	
 	WIN_SLN_DIR="$(winepath -w "$SLN_DIR")"
 
-	export WINEPREFIX=~/.local/share/wineprefixes/unity3d/
 	MD_PATH="${WINEPREFIX}drive_c/Program Files/Unity/MonoDevelop/bin/MonoDevelop.exe"
 	
 	if [ "$(pidof MonoDevelop.exe)" ] && [ $PREV_SLN_NAME == $SLN_NAME ]
@@ -49,6 +49,8 @@ BACKWARD_SLN_DIR=""
 for i in $(seq 0 $COUNT); do BACKWARD_SLN_DIR="${BACKWARD_SLN_DIR}../"; done
 
 ln -s "/" "${SLN_DIR}/Z:"
+ln -s "${WINEPREFIX}dosdevices/c:" "${SLN_DIR}/C:"
+
 cd "${SLN_DIR}$LOCAL_FILE_DIR"
 
 PREV_SLN_NAME=$(head -n 1 "${SLN_DIR}/sln_name_of_last_monodevelop_call")
