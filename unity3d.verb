@@ -8,8 +8,7 @@
 # waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com), gnumaru
 # Script licence : GPL v.2
 # Usage: winetricks [options] [path to verb]
-# Example: winetricks -q "./unity3d.verb"
-# Use -q for unattended silent installation.
+# Example: winetricks "./unity3d.verb"
 
 w_metadata unity3d apps \
     title="Unity 3D" \
@@ -21,42 +20,19 @@ w_metadata unity3d apps \
 
 load_unity3d () {
 
-	# Warn about dotnet30
-	# w_warn "In order to succesfully run this script you must first download netframework3.exe from http://www.oldversion.com/windows/net-framework-3-0 to /home/<username>/.cache/winetricks/dotnet30/"
-
-	# First check if winetricks actually can install some components
-	# by downloading fonts - this will also fix any problems with text in the installer.
+	# Install fonts
 	w_call tahoma
 	w_call corefonts
 
-	# Install windows components
-	w_call d3dx9_36 # If it doesn't work, use d3dx9
+	# Download and run the installer
+	# 4.6.2: http://netstorage.unity3d.com/unity/UnitySetup-4.6.2.exe 998ee6e843461e2fb9e89c2dccd0721b7b2101b7
+	w_download http://netstorage.unity3d.com/unity/5a2e8fe35a68/UnityDownloadAssistant.exe f9ac43b9455274065c2ea8e447a52509227fe784
 
-	# Install MS .Net 2.0, 3.5 & 4.0
-	w_warn "Brace yourself. It is known that the installation of dotnet30 can be troublesome."
+	cd "$W_CACHE/$W_PACKAGE"
 
-	# Downloading files from external sources for winetricks
-	if [ ! -f "$W_CACHE/dotnet30/netframework3.exe" ]
-	then
-		w_download http://uni-smr.ac.ru/archive/win/MS%20.NET%20Framework/3.0/dotnetfx3.exe f3d2c3c7e4c0c35450cf6dab1f9f2e9e7ff50039 netframework3.exe
-		mkdir "$W_CACHE/dotnet30/"
-		mv "$W_CACHE/$W_PACKAGE/netframework3.exe" "$W_CACHE/dotnet30/netframework3.exe"
-	fi
-
-	if [ ! -f "$W_CACHE/msxml3/msxml3.msi" ]
-	then
-		w_download http://repository.playonlinux.com/divers/msxml3.msi d4c2178dfb807e1a0267fce0fd06b8d51106d913
-		mkdir "$W_CACHE/msxml3/"
-		mv "$W_CACHE/$W_PACKAGE/msxml3.msi" "$W_CACHE/msxml3/msxml3.msi"
-	fi
-
-	# Not need to call dotnet20, it's called by dotnet30 which is called by dotnet30sp1 which is called by dotnet35
-	# w_call dotnet20
-	w_call dotnet35
-	w_call dotnet40
-
-	# Install NVidia PhysX - increases performance
-	w_call physx
+	w_warn "Now running the Unity installation. As Unity is very big, this can take more than 20 minutes. Please be patient."
+	# Run the installer
+	"$WINE" UnityDownloadAssistant.exe
 	
 	# Install IE 8 to fix the creating project bug
 	if w_workaround_wine_bug 26272 "Installing IE 8 to fix project creation bug." 1.7.34,
@@ -64,48 +40,11 @@ load_unity3d () {
 		w_call ie8
 	fi
 
-	# Force mono so that MonoDevelop works
-	w_call forcemono
-
-	# Not sure whether these are needed, seems to work fine without them
-	# w_call directx9 - as winetricks states: "Usually overkill."
-	# w_call vcrun2008 - ↓
-	# w_call vcrun2010 - if you want to use VS (BTW it's for C++)
-	# w_call dxdiag - DirectX Diagnostic Tool
-	# w_call msxml6 - MS XML Core Services 6.0 sp1 (3.0 is already installed)
-	# w_call wininet - MS Windows Internet API
-
-	# (moved this to the end because if some of the components fail the user doesn't need to reinstall Unity)
-	# Download and run the installer (this runs after the fonts because it's enourmous)
-	# 4.3.4: http://netstorage.unity3d.com/unity/UnitySetup-4.3.4.exe 0ef66c5ddded85c801d86951d89f73a8968d0798
-	# 4.5.0: http://netstorage.unity3d.com/unity/UnitySetup-4.5.0.exe 82819f7946d2e2f4188b24e20dc2dc83b6f6f675
-	# 4.5.1: http://netstorage.unity3d.com/unity/UnitySetup-4.5.1.exe 8e17cc892bb75e2190a260f27ad3f8514daec752
-	# 4.5.3: http://netstorage.unity3d.com/unity/UnitySetup-4.5.3.exe f4b46e5d8984b5207657fd1f386e4ab991f1a8a3
-	# 4.5.5: http://netstorage.unity3d.com/unity/UnitySetup-4.5.5.exe c6ef9abc853f32a7fa1c9c9d841ebeef9e46cb57
-	# 4.6.0: http://netstorage.unity3d.com/unity/UnitySetup-4.6.0.exe 5cc7a85e186c965d230bcc7a2a463d92fbc2f7fc
-	# 4.6.1: http://netstorage.unity3d.com/unity/UnitySetup-4.6.1.exe e0fb5e2d653024d4981dce42aaff473943f1f283
-	# 4.6.2: http://netstorage.unity3d.com/unity/UnitySetup-4.6.2.exe 998ee6e843461e2fb9e89c2dccd0721b7b2101b7
-	w_download http://netstorage.unity3d.com/unity/5a2e8fe35a68/UnityDownloadAssistant.exe f9ac43b9455274065c2ea8e447a52509227fe784
-
-	cd "$W_CACHE/$W_PACKAGE"
-
-	w_warn "Now running the Unity installation. As Unity is very big, this can take more than 20 minutes. Please be patient."
-	# Run the installer, in unattended mode if requested
-	"$WINE" UnityDownloadAssistant.exe $W_UNATTENDED_SLASH_S
-
-	# Fix license bug (if it doesn't work, replace "reg" with "reg.exe")
+	# Fix license bug
 	if w_workaround_wine_bug 36964 "Creating a ProductId registry key" 1.7.34,
 	then
 		"$WINE" reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion" /v ProductId /t REG_SZ /d 12345-oem-0000001-54321
 	fi
-	
-	# Old registry fix:
-	# regfile=$(mktemp --suffix=.REG)
-	# echo "REGEDIT4" > $regfile
-	# echo "" >> $regfile
-	# echo "[HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion]" >> $regfile
-	# echo '"ProductId"="12345-oem-0000001-54321"' >> $regfile
-	# $WINE regedit $regfile
 
 	# Fix bug after pressing the play button
 	if w_workaround_wine_bug 22896 "Creating FOLDERID_LocalAppDataLow" 1.7.24,
@@ -115,4 +54,5 @@ load_unity3d () {
 	
 	# End
 	w_declare_exe "$W_PROGRAMS_WIN/Unity/Editor" "Unity.exe"
+
 }
