@@ -14,14 +14,12 @@
 w_metadata unity3d apps \
     title="Unity 3D" \
     publisher="Unity Technologies" \
-    year="2014" \
+    year="2015" \
     media="download" \
-    file1="UnitySetup-4.6.2.exe" \
-    installed_exe1="$W_PROGRAMS_X86_WIN/Unity/Editor/Unity.exe"
+    file1="UnityDownloadAssistant.exe" \
+    installed_exe1="$W_PROGRAMS_WIN/Unity/Editor/Unity.exe"
 
 load_unity3d () {
-
-	w_warn "This script will only work if the default wineprefix (./.wine) is 32 bit."
 
 	# Warn about dotnet30
 	# w_warn "In order to succesfully run this script you must first download netframework3.exe from http://www.oldversion.com/windows/net-framework-3-0 to /home/<username>/.cache/winetricks/dotnet30/"
@@ -86,13 +84,14 @@ load_unity3d () {
 	# 4.5.5: http://netstorage.unity3d.com/unity/UnitySetup-4.5.5.exe c6ef9abc853f32a7fa1c9c9d841ebeef9e46cb57
 	# 4.6.0: http://netstorage.unity3d.com/unity/UnitySetup-4.6.0.exe 5cc7a85e186c965d230bcc7a2a463d92fbc2f7fc
 	# 4.6.1: http://netstorage.unity3d.com/unity/UnitySetup-4.6.1.exe e0fb5e2d653024d4981dce42aaff473943f1f283
-	w_download http://netstorage.unity3d.com/unity/UnitySetup-4.6.2.exe 998ee6e843461e2fb9e89c2dccd0721b7b2101b7
+	# 4.6.2: http://netstorage.unity3d.com/unity/UnitySetup-4.6.2.exe 998ee6e843461e2fb9e89c2dccd0721b7b2101b7
+	w_download http://netstorage.unity3d.com/unity/5a2e8fe35a68/UnityDownloadAssistant.exe f9ac43b9455274065c2ea8e447a52509227fe784
 
 	cd "$W_CACHE/$W_PACKAGE"
 
 	w_warn "Now running the Unity installation. As Unity is very big, this can take more than 20 minutes. Please be patient."
 	# Run the installer, in unattended mode if requested
-	"$WINE" UnitySetup-4.6.2.exe $W_UNATTENDED_SLASH_S
+	"$WINE" UnityDownloadAssistant.exe $W_UNATTENDED_SLASH_S
 
 	# Fix license bug (if it doesn't work, replace "reg" with "reg.exe")
 	if w_workaround_wine_bug 36964 "Creating a ProductId registry key" 1.7.34,
@@ -115,5 +114,5 @@ load_unity3d () {
 	fi
 	
 	# End
-	w_declare_exe "$W_PROGRAMS_X86_WIN/Unity/Editor" "Unity.exe"
+	w_declare_exe "$W_PROGRAMS_WIN/Unity/Editor" "Unity.exe"
 }
