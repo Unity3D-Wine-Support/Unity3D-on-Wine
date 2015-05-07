@@ -44,7 +44,7 @@ load_unity3d_minimal () {
 	w_warn "Now running the Unity installation. As Unity is very big, this can take more than 20 minutes. Please be patient."
 	# Run the installer
 	"$WINE" UnityDownloadAssistant.exe
-	
+
 	# Install IE 8 to fix the creating project bug
 	if w_workaround_wine_bug 26272 "Installing IE 8 to fix project creation bug" 1.7.34,
 	then
@@ -65,4 +65,5 @@ load_unity3d_minimal () {
 
 	# End
 	w_declare_exe "$W_PROGRAMS_WIN/Unity/Editor" "Unity.exe"
+
 }
