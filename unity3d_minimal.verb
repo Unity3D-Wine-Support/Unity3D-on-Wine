@@ -2,6 +2,9 @@
 #  Filename: unity3d_minimal.verb
 #  Please don't change the filename otherwise the script won't work.
 #
+#  This script is almost the same as unity3d.verb, but tries to install as
+#  little as possible, relying on system libraries and fonts.
+#
 #  Copyright (c) 2014-2015 The Wine Support Team
 #  <https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/>
 #
