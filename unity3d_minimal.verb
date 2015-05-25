@@ -1,46 +1,52 @@
-# Filename: unity3d_minimal.verb
-# Please don't change the filename otherwise the script won't work
-# Date : (2014-06-21 16-12)
-# Wine version used : 1.7.19
-# Distribution used to test : Ubuntu 14.04
-# Author: Doctor Jellyface <doctorjellyface@riseup.net>
-# This script is a heavily modified version of a port of a script made by:
-# waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com), gnumaru
-# Script licence : GPL v.2
-# Usage: winetricks [options] [path to verb]
-# Example: winetricks -q "./unity3d.verb"
-# Use -q for unattended silent installation.
+#
+#  Filename: unity3d_minimal.verb
+#  Please don't change the filename otherwise the script won't work.
+#
+#  This script is almost the same as unity3d.verb, but tries to install as
+#  little as possible, relying on system libraries and fonts.
+#
+#  Copyright (c) 2014-2015 The Wine Support Team
+#  <https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#  Usage: winetricks [options] [path to verb]
+#  Example: winetricks "./unity3d_minimal.verb"
+#
 
 w_metadata unity3d_minimal apps \
     title="Unity 3D" \
     publisher="Unity Technologies" \
-    year="2014" \
+    year="2015" \
     media="download" \
-    file1="UnitySetup-4.6.2.exe" \
-    installed_exe1="$W_PROGRAMS_X86_WIN/Unity/Editor/Unity.exe"
+    file1="UnityDownloadAssistant.exe" \
+    installed_exe1="$W_PROGRAMS_WIN/Unity/Editor/Unity.exe"
 
 load_unity3d_minimal () {
 
-	# First check if winetricks actually can install some components
-	# by downloading fonts - this will also fix any problems with text in the installer.
-	w_call tahoma
-	w_call corefonts
-
-	# Download and run the installer (this runs after the fonts because it's enourmous)
-	# 4.3.4: http://netstorage.unity3d.com/unity/UnitySetup-4.3.4.exe 0ef66c5ddded85c801d86951d89f73a8968d0798
-	# 4.5.0: http://netstorage.unity3d.com/unity/UnitySetup-4.5.0.exe 82819f7946d2e2f4188b24e20dc2dc83b6f6f675
-	# 4.5.1: http://netstorage.unity3d.com/unity/UnitySetup-4.5.1.exe 8e17cc892bb75e2190a260f27ad3f8514daec752
-	# 4.6.1: http://netstorage.unity3d.com/unity/UnitySetup-4.6.1.exe e0fb5e2d653024d4981dce42aaff473943f1f283
-	w_download http://netstorage.unity3d.com/unity/UnitySetup-4.6.2.exe 998ee6e843461e2fb9e89c2dccd0721b7b2101b7
+	# Download and run the installer
+	# 4.6.2: http://netstorage.unity3d.com/unity/UnitySetup-4.6.2.exe 998ee6e843461e2fb9e89c2dccd0721b7b2101b7
+	w_download http://netstorage.unity3d.com/unity/5a2e8fe35a68/UnityDownloadAssistant.exe f9ac43b9455274065c2ea8e447a52509227fe784
 
 	cd "$W_CACHE/$W_PACKAGE"
 
 	w_warn "Now running the Unity installation. As Unity is very big, this can take more than 20 minutes. Please be patient."
-	# Run the installer, in unattended mode if requested
-	"$WINE" UnitySetup-4.6.2.exe $W_UNATTENDED_SLASH_S
-	
+	# Run the installer
+	"$WINE" UnityDownloadAssistant.exe
+
 	# Install IE 8 to fix the creating project bug
-	if w_workaround_wine_bug 26272 "Installing IE 8 to fix project creation bug." 1.7.34,
+	if w_workaround_wine_bug 26272 "Installing IE 8 to fix project creation bug" 1.7.34,
 	then
 		w_call ie8
 	fi
@@ -58,5 +64,6 @@ load_unity3d_minimal () {
 	fi
 
 	# End
-	w_declare_exe "$W_PROGRAMS_X86_WIN/Unity/Editor" "Unity.exe"
+	w_declare_exe "$W_PROGRAMS_WIN/Unity/Editor" "Unity.exe"
+
 }
