@@ -3,7 +3,7 @@ Unity 3D on Wine
 
 This repository contains scripts to make Unity run on Wine the best it can.
 
-If you are looking for instructions, you can find them [here](http://wiki.unity3d.com/index.php/Running_Unity_on_Linux_through_Wine).
+**If you are looking for instructions, you can find them [here](http://wiki.unity3d.com/index.php/Running_Unity_on_Linux_through_Wine).**
 
 If you want to play Unity Web Player games on Linux, you should look at [Pipelight](http://wiki.unity3d.com/index.php/Running_Unity_Web_Player_on_Linux_using_Pipelight).
 
