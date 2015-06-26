@@ -12,7 +12,7 @@
 
 # Known Issues : You can't use Asset Store
 
-[ "$PLAYONLINUX" = "" ]  exit 0
+[ "$PLAYONLINUX" = "" ]  && exit 0
 source "$PLAYONLINUX/lib/sources"
 
 TITLE="Unity 3D"
