@@ -22,7 +22,7 @@ LOCAL_FILE_PATH="${FILE_PATH#$SLN_DIR}"
 LOCAL_FILE_DIR=$(dirname "$LOCAL_FILE_PATH")
 FILE_NAME="${LOCAL_FILE_PATH#${LOCAL_FILE_DIR}/}"
 
-export WINEPREFIX=~/.local/share/wineprefixes/unity3d/
+export WINEPREFIX="${SLN_DIR%%/dosdevices/z*}/"
 if [[ $FILE_PATH == *".js" ]]
 then
 	SLN_NAME="${SLN_NAME/-csharp/}"
