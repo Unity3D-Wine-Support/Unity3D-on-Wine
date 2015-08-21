@@ -25,7 +25,7 @@ FILE_NAME="${LOCAL_FILE_PATH#${LOCAL_FILE_DIR}/}"
 PREV_SLN_NAME=$(head -n 1 "${SLN_DIR}/sln_name_of_last_monodevelop_call_builtin")    
 echo "$SLN_NAME" > "${SLN_DIR}/sln_name_of_last_monodevelop_call_builtin"
 
-export WINEPREFIX=~/.local/share/wineprefixes/unity3d/
+export WINEPREFIX="${SLN_DIR%%/dosdevices/z*}/"
 MD_PATH="${WINEPREFIX}drive_c/Program Files/Unity/MonoDevelop/bin/MonoDevelop.exe"
 
 if [ "$(pidof MonoDevelop.exe)" ] && [ $PREV_SLN_NAME == $SLN_NAME ]
