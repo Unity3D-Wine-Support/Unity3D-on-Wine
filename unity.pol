@@ -1,65 +1,63 @@
 #!/bin/bash
+#
+#  Filename: unity.pol
+#
+#  Copyright (c) 2014-2015 The Unity Wine Support Team
+#  <https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#  For use with PlayOnLinux
+#  <https://playonlinux.com/>
+#
 
-# Date : (2014-03-07 10-21)
-# Last revision : (2015-01-29 2-41)
-# Wine version used : 1.7.35
-# Distribution used to test : Fedora 21
-# Authors : waneck-six, Damian-LinuxFan, Tomza (pogtoma@gmail.com), gnumaru, Doctor Jellyface (doctorjellyface@riseup.net), MarsEdge
-# Contributors: Goran Grncaroski (running MonoDevelop), eje211 (crash fix), other people (testing solutions)
-# Script licence : GPL v.2
-# Only For : http://www.playonlinux.com
-# Depend :
-
-# Known Issues : You can't use Asset Store
-
-[ "$PLAYONLINUX" = "" ]  && exit 0
+[ "$PLAYONLINUX" = "" ] && exit 0
 source "$PLAYONLINUX/lib/sources"
 
 TITLE="Unity 3D"
 PREFIX="Unity3D"
-WINE_VERSION="1.7.35"
 
 POL_SetupWindow_Init
 POL_Debug_Init
 
-POL_SetupWindow_presentation "$TITLE" "Unity" "http://www.unity3d.com/" "Cauê Waneck, Damian-LinuxFan, Tomasz Zackiewicz, gnumaru, Doctor Jellyface, MarsEdge" "$PREFIX"
+POL_SetupWindow_presentation "$TITLE" "Unity Technologies" "http://unity3d.com/" "The Unity Wine Support Team" "$PREFIX"
 
-#create prefix
-export WINEARCH="win32"
+# Create the prefix
 POL_Wine_SelectPrefix "$PREFIX"
-POL_Wine_PrefixCreate "$WINE_VERSION"
+POL_Wine_PrefixCreate
 
-#setup prefix
+# Install the fonts
 POL_Wine_InstallFonts
-POL_Call POL_Install_directx9
-POL_Call POL_Install_dotnet20
-POL_Call POL_Install_dotnet35
-POL_Call POL_Install_dotnet40
-POL_Call POL_Install_tahoma
-POL_Call POL_Install_vcrun2008
-POL_Call POL_Install_vcrun2010
-POL_Call POL_Install_mono210
-POL_Call POL_Install_d3dx9_36
-POL_Call POL_Install_d3dcompiler_43
-POL_Call POL_Install_dxdiag
-POL_Call POL_Install_dxfullsetup
-POL_Call POL_Install_physx
-POL_Call POL_Install_corefonts
-POL_Call POL_Install_msxml6
-POL_Call POL_Install_wininet
 
-#Setting OS wer
-Set_OS  "winxp" "sp3"
+POL_SetupWindow_InstallMethod "DOWNLOAD,LOCAL"
 
-#Setting mono forcing in MonoDevelop
-POL_Wine_OverrideDLL "native, builtin" "mscore"
-POL_Wine_OverrideDLL "builtin, native" "dnsapi"
-POL_Wine_OverrideDLL "" "mscorsvw.exe"
+POL_System_TmpCreate "$PREFIX"
 
-POL_SetupWindow_browse "Please select the location of the Unity3D setup executable" "$TITLE"
+if [ "$INSTALL_METHOD" = "DOWNLOAD" ]
+then
+	cd "$POL_System_TmpDir"
+	POL_Download "http://netstorage.unity3d.com/unity/0b02744d4013/UnityDownloadAssistant-5.0.2f1.exe" "dfdb5394ee22260da4aea09e5f233314"
+	POL_SetupWindow_wait "$(eval_gettext 'Please wait while $TITLE is installed.')" "$TITLE"
+	POL_Wine start /unix "$POL_System_TmpDir/UnityDownloadAssistant-5.0.2f1.exe"
+elif [ "$INSTALL_METHOD" = "LOCAL" ]
+then
+	POL_SetupWindow_browse "$(eval_gettext 'Please select the setup file to run.')" "$TITLE"
+	POL_SetupWindow_wait "$(eval_gettext 'Please wait while $TITLE is installed.')" "$TITLE"
+	POL_Wine start /unix "$APP_ANSWER"
+fi
 
-UNITYLOC=$APP_ANSWER
-POL_Wine $UNITYLOC
+POL_System_TmpDelete
 
 POL_Shortcut "Unity.exe" "$TITLE"
 
