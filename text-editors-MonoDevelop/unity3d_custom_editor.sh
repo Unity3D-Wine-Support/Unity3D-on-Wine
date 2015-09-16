@@ -19,5 +19,8 @@ FILE_PATH=$(wine winepath -u "$WIN_FILE_PATH")
 FILE_PATH="${FILE_PATH/dosdevices\/c:/drive_c}"
 
 #replace subl with custom editor (watch out for its argument formatting!)
-/bin/subl "$FILE_PATH:$FILE_LINE"
+EDITOR="subl"
+EDITOR_PATH="$(which $EDITOR)"
+
+"$EDITOR_PATH" "$FILE_PATH:$FILE_LINE"
 
