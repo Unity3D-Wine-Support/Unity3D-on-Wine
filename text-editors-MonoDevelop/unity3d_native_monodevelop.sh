@@ -14,7 +14,7 @@ else
 	FILE_LINE="$2"
 fi
 
-if [ $FILE_LINE == "-1" ]; then FILE_LINE="0"; fi
+if [ "$FILE_LINE" == "-1" ]; then FILE_LINE="0"; fi
 
 FILE_PATH=$(winepath -u "$WIN_FILE_PATH")
 if [[ "$WIN_FILE_PATH" == *.sln ]]; then FILE_PATH=$(dirname "$FILE_PATH"); fi

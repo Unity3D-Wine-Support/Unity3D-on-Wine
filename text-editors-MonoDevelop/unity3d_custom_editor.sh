@@ -13,7 +13,7 @@ else
 	WIN_FILE_PATH="$1"
 	FILE_LINE="$2"
 fi
-if [ $FILE_LINE == "-1" ]; then FILE_LINE="0"; fi
+if [ "$FILE_LINE" == "-1" ]; then FILE_LINE="0"; fi
 
 FILE_PATH=$(wine winepath -u "$WIN_FILE_PATH")
 FILE_PATH="${FILE_PATH/dosdevices\/c:/drive_c}"
