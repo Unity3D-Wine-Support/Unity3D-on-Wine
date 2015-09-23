@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/bin/bash
+
+# to debug uncomment the next line
+# set -x
+
 if [ -z "$1" ]; then exit 1; fi
 
 if [ "$1" == "--nologo" ]
@@ -10,7 +14,7 @@ else
 	FILE_LINE="$2"
 fi
 
-if [ $FILE_LINE == "-1" ]; then FILE_LINE="0"; fi
+if [ "$FILE_LINE" == "-1" ]; then FILE_LINE="0"; fi
 
 FILE_PATH=$(winepath -u "$WIN_FILE_PATH")
 if [[ "$WIN_FILE_PATH" == *.sln ]]; then FILE_PATH=$(dirname "$FILE_PATH"); fi
@@ -58,15 +62,16 @@ PREV_SLN_NAME=$(head -n 1 "${SLN_DIR}/sln_name_of_last_monodevelop_call")
 
 echo "$SLN_NAME" > "${SLN_DIR}/sln_name_of_last_monodevelop_call"
 
+MD_PATH="$(which monodevelop)"
 if [[ "$WIN_FILE_PATH" == *".sln" ]]
 then
 	if [ -z "$(pidof monodevelop)" ]
-	then /bin/monodevelop "$SLN_NAME"
+	then "$MD_PATH" "$SLN_NAME"
 	fi
 else
 	if [ "$(pidof monodevelop)" ] && [ $PREV_SLN_NAME == $SLN_NAME ]
-	then /bin/monodevelop "$FILE_NAME;$FILE_LINE"
-	else /bin/monodevelop "${BACKWARD_SLN_DIR}$SLN_NAME $FILE_NAME;$FILE_LINE"
+	then "$MD_PATH" "$FILE_NAME;$FILE_LINE"
+	else "$MD_PATH" "${BACKWARD_SLN_DIR}$SLN_NAME $FILE_NAME;$FILE_LINE"
 	fi
 fi
 

@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/bin/bash
+
+# to debug uncomment the next line
+# set -x
+
 if [ -z "$1" ]; then exit 1; fi
 
 if [ "$1" == "--nologo" ]
@@ -9,7 +13,7 @@ else
 	WIN_FILE_PATH="$1"
 	FILE_LINE="$2"
 fi
-if [ $FILE_LINE == "-1" ]; then FILE_LINE="0"; fi
+if [ "$FILE_LINE" == "-1" ]; then FILE_LINE="0"; fi
 
 FILE_PATH=$(winepath -u "$WIN_FILE_PATH")
 SLN_DIR="${FILE_PATH%%/Assets/*}"
