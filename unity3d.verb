@@ -27,7 +27,7 @@ w_metadata unity3d apps \
     publisher="Unity Technologies" \
     year="2015" \
     media="download" \
-    file1="UnityDownloadAssistant-5.2.2f1.exe" \
+    file1="UnityDownloadAssistant-5.3.2f1.exe" \
     installed_exe1="$W_PROGRAMS_WIN/Unity/Editor/Unity.exe"
 
 load_unity3d () {
@@ -40,13 +40,14 @@ load_unity3d () {
 	# 4.6.2: http://netstorage.unity3d.com/unity/UnitySetup-4.6.2.exe 998ee6e843461e2fb9e89c2dccd0721b7b2101b7
 	# 5.0.1: http://netstorage.unity3d.com/unity/5a2e8fe35a68/UnityDownloadAssistant.exe f9ac43b9455274065c2ea8e447a52509227fe784
 	# 5.0.2: http://netstorage.unity3d.com/unity/0b02744d4013/UnityDownloadAssistant-5.0.2f1.exe 99380b88f2f4c68ca0d8eb3ddfd87a754255e839
-	w_download http://netstorage.unity3d.com/unity/3757309da7e7/UnityDownloadAssistant-5.2.2f1.exe 5d0a84d3863235cc37e7cd260da321171d4a968f
+	# 5.2.2: http://netstorage.unity3d.com/unity/3757309da7e7/UnityDownloadAssistant-5.2.2f1.exe 5d0a84d3863235cc37e7cd260da321171d4a968f
+	w_download http://netstorage.unity3d.com/unity/e87ab445ead0/UnityDownloadAssistant-5.3.2f1.exe 6e88044a6a1048d5a0c3b27bab521449e6080c79
 
 	cd "$W_CACHE/$W_PACKAGE"
 
 	w_warn "Now running the Unity installation. As Unity is very big, this can take more than 20 minutes. Please be patient."
 	# Run the installer
-	"$WINE" UnityDownloadAssistant-5.2.2f1.exe
+	"$WINE" UnityDownloadAssistant-5.3.2f1.exe
 
 	# Install IE 8 to fix the creating project bug
 	if w_workaround_wine_bug 26272 "Installing IE 8 to fix project creation bug" 1.7.34,
