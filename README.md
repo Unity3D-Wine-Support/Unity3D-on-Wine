@@ -1,13 +1,9 @@
 Unity 3D on Wine
 ================
 
- - - - - - - - -
-
-**Important: There is now a native version of Unity available for Linux!** It's currently in an open beta. You can download it from [here](http://forum.unity3d.com/threads/unity-on-linux-release-notes-and-known-issues.350256/). It's already known to have great performance improvements and better functinality.
-
-**If you're looking for a working Unity setup, you should try the native version first.**
-
- - - - - - - - -
+> **Important: There is now a native version of Unity available for Linux!** It's currently in an open beta. You can download it from [here](http://forum.unity3d.com/threads/unity-on-linux-release-notes-and-known-issues.350256/). It's already known to have great performance improvements and better functinality.
+>
+> **If you're looking for a working Unity setup, you should try the native version first.**
 
 This repository contains scripts to make Unity run on Wine the best it can.
 
@@ -17,11 +13,8 @@ If you want to play Unity Web Player games on Linux, you should look at [Pipelig
 
 If you want to give feedback, please do so [here](https://github.com/Unity3D-Wine-Support/Unity3D-on-Wine/issues/48). Thanks!
 
-Screenshots:
-------------
+Screenshots
+-----------
 
-Standard Unity v4.?.?:
+Unity 4:
 ![Cool screenshot you must see](http://forum.unity3d.com/attachments/captura-de-tela-de-2014-06-07-15-25-43-png.103585/)
-
-Unity in OpenGL mode v4.?.?:
-![Even cooler screenshot you should see](https://lh4.googleusercontent.com/-xJ3ETk3pEgo/U7Zx5AD_A-I/AAAAAAAABTQ/2KZei78la48/w958-h766-no/Screenshot+from+2014-07-04+11%253A50%253A51.png)
